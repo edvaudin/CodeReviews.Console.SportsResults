@@ -20,9 +20,15 @@ namespace SportsResults
                     WinningScore = int.Parse(gameTable.SelectSingleNode(".//tr[@class='winner']").SelectSingleNode(".//td[@class='right']").InnerText),
                     LosingTeam = gameTable.SelectSingleNode(".//tr[@class='loser']").SelectSingleNode(".//a").InnerText,
                     LosingScore = int.Parse(gameTable.SelectSingleNode(".//tr[@class='loser']").SelectSingleNode(".//td[@class='right']").InnerText),
+                    HighestPointScorer = gameTable.SelectNodes(".//table[@class='stats']/tbody/tr")[0].SelectSingleNode(".//td[contains(a, *)]").InnerText,
+                    HighestPlayerPoints = int.Parse(gameTable.SelectNodes(".//table[@class='stats']/tbody/tr")[0].SelectSingleNode(".//td[@class='right']").InnerText),
+                    MostTotalRebounder = gameTable.SelectNodes(".//table[@class='stats']/tbody/tr")[1].SelectSingleNode(".//td[contains(a, *)]").InnerText,
+                    MostPlayerTotalRebounds = int.Parse(gameTable.SelectNodes(".//table[@class='stats']/tbody/tr")[1].SelectSingleNode(".//td[@class='right']").InnerText),
+
                 };
                 games.Add(game);
-                Console.WriteLine($"Game {gameTables.IndexOf(gameTable)}: {game.WinningTeam} [{game.WinningScore}] - {game.LosingTeam} [{game.LosingScore}]");
+                Console.WriteLine($"Game {gameTables.IndexOf(gameTable)}: {game.WinningTeam} [{game.WinningScore}] - {game.LosingTeam} [{game.LosingScore}]\n" +
+                    $"Highest point scorer: {game.HighestPointScorer} [{game.HighestPlayerPoints}]; Most Total Rebounds: {game.MostTotalRebounder} [{game.MostPlayerTotalRebounds}]");
             }
         }
     }
