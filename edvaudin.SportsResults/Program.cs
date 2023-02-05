@@ -2,12 +2,11 @@
 using FluentEmail.Razor;
 using FluentEmail.Smtp;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using Microsoft.Extensions.Configuration;
 using System.Timers;
-using System.Threading;
 
 namespace SportsResults;
 
@@ -16,7 +15,7 @@ internal class Program
     private static StringBuilder template;
     private static readonly int DAY = 1000 * 60 * 60 * 24;
     private static IConfigurationRoot configurationRoot;
-    static ManualResetEvent quitEvent = new ManualResetEvent(false);
+    static ManualResetEvent quitEvent = new(false);
     static async Task Main(string[] args)
     {
         configurationRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -24,7 +23,7 @@ internal class Program
 
         template = SetupEmail();
 
-        System.Timers.Timer timer = new System.Timers.Timer(DAY);
+        System.Timers.Timer timer = new(DAY);
         timer.Elapsed += OnTimedEvent;
         timer.AutoReset = true;
         timer.Enabled = true;
@@ -97,7 +96,7 @@ internal class Program
 
         foreach (Game game in games)
         {
-            template.AppendLine($"<p>{ game.ToString()}</p>");
+            template.AppendLine($"<p>{game.ToString()}</p>");
         }
     }
 }
