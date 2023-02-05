@@ -13,4 +13,10 @@ public class Game
     public string MostTotalRebounder { get; set; }
     public int MostPlayerTotalRebounds { get; set; }
 
+    public override string ToString()
+    {
+        return $"{WinningTeam} ({WinningScore} - {LosingScore}) {LosingTeam}\n" +
+               $"PTS - {HighestPointScorer} ({HighestPlayerPoints}) | TRB - {MostTotalRebounder} ({MostPlayerTotalRebounds})";
+    }
+
 }

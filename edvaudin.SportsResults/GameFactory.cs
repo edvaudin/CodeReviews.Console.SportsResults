@@ -16,7 +16,6 @@ public class GameFactory
             HighestPlayerPoints = int.Parse(node.SelectNodes(".//table[@class='stats']/tbody/tr")[0].SelectSingleNode(".//td[@class='right']").InnerText),
             MostTotalRebounder = node.SelectNodes(".//table[@class='stats']/tbody/tr")[1].SelectSingleNode(".//td[contains(a, *)]").InnerText,
             MostPlayerTotalRebounds = int.Parse(node.SelectNodes(".//table[@class='stats']/tbody/tr")[1].SelectSingleNode(".//td[@class='right']").InnerText),
-
         };
     }
 
