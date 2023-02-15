@@ -6,7 +6,7 @@ public class GameFactory
 {
     private static Game CreateGame(HtmlNode node)
     {
-        return new Game()
+        return new Game
         {
             WinningTeam = node.SelectSingleNode(".//tr[@class='winner']").SelectSingleNode(".//a").InnerText,
             WinningScore = int.Parse(node.SelectSingleNode(".//tr[@class='winner']").SelectSingleNode(".//td[@class='right']").InnerText),

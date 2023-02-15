@@ -16,7 +16,7 @@ internal class Program
     private static readonly int DAY = 1000 * 60 * 60 * 24;
     private static IConfigurationRoot configurationRoot;
     static ManualResetEvent quitEvent = new(false);
-    static async Task Main(string[] args)
+    static async Task Main()
     {
         configurationRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
         SetCancelEvent();
@@ -32,7 +32,7 @@ internal class Program
 
     private static void SetCancelEvent()
     {
-        Console.CancelKeyPress += (sender, eArgs) =>
+        Console.CancelKeyPress += (_, eArgs) =>
         {
             quitEvent.Set();
             eArgs.Cancel = true;
@@ -63,7 +63,7 @@ internal class Program
             Credentials = new NetworkCredential(configurationRoot.GetSection("Gmail")["Sender"], configurationRoot.GetSection("Gmail")["Password"])
         });
 
-        StringBuilder template = new();
+        template = new();
 
         template.AppendLine("Hi @Model.FirstName,");
         template.AppendLine("<p>Here are the results for the NBA games today:</p>");
@@ -76,7 +76,7 @@ internal class Program
 
     private static async Task SendEmail(StringBuilder template)
     {
-        var email = await Email
+        await Email
             .From(configurationRoot.GetSection("Mail")["From"])
             .To(configurationRoot.GetSection("Mail")["ToEmail"], configurationRoot.GetSection("Mail")["ToName"])
             .Subject($"{DateTime.Now.ToLongDateString()} - NBA Results")
